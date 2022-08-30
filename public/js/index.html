@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--
+This is an example HTML that shows how WebGazer can be used on a website.
+This file provides the additional features:
+  * An integrated, intuitive and sleek action bar with an informative "help" module accessible at all times
+  * Structured 9-point calibration system
+  * Accuracy measure of predictions based on calibration process
+  * Video feedback regarding face positioning
+  * Improved eye predictions visible to the user
+Instructions on use can be found in the README repository.
+-->
+<html>
+<head>
+    <style>
+        .go-top {
+            position: fixed;	        /* 设置fixed固定定位 */
+            bottom: 20px;		/* 距离浏览器窗口下边框20px */
+            right: 20px;		/* 距离浏览器窗口右边框20px */
+        }
+        .go-top a {
+            display: block;			/* 将<a>标签设为块元素，用于美化样式 */
+            text-decoration: none;		/* 取消超链接下画线 */
+            color: #333;			/* 设置文本颜色 */
+            background-color: #f2f2f2;		/* 设置背景颜色 */
+            border: 1px solid #ccc;		/* 设置边框样式 */
+            padding: 10px 20px;			/* 设置内边距 */
+            border-radius: 5px;			/* 设置圆角矩形 */
+            letter-spacing: 2px;		/* 设置文字间距 */
+        }
+    </style>
+    <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+    <TITLE>WebGazer Demo</TITLE>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <!-- <script src="./tensorflow.js"></script> -->
+    <script src="./webgazer.js"></script>
+</head>
+<body LANG="en-US" LINK="#0000ff" DIR="LTR">
+<canvas id="plotting_canvas" width="500" height="500" style="cursor:crosshair;"></canvas>
+
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../node_modules/sweetalert/dist/sweetalert.min.js"></script>
+
+<nav id="webgazerNavbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <!-- The hamburger menu button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar" id='start_calibration' class="btn btn-primary" data-dismiss="modal" onclick="ReClaculate()">Recalibrate</span>
+            </button>
+<!--            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">-->
+<!--                <span class="icon-bar" id="shutbutton" class="btn btn-primary" data-dismiss="modal">red dot</span>-->
+<!--            </button>-->
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <!-- Accuracy -->
+                <li id="Accuracy"><a>Not yet Calibrated</a></li>
+                <li><a onclick="Restart()" href="#">Recalibrate</a></li>
+                <li><a onclick="webgazer.applyKalmanFilter(!webgazer.params.applyKalmanFilter)" href="#">Toggle Kalman Filter</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><button class="helpBtn" data-toggle="modal" data-target="#helpModal"><a data-toggle="modal"><span class="glyphicon glyphicon-cog"></span> Help</a></button></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Calibration points -->
+<div class="calibrationDiv">
+    <input type="button" class="Calibration" id="Pt1"/>
+    <input type="button" class="Calibration" id="Pt2"/>
+    <input type="button" class="Calibration" id="Pt3"/>
+    <input type="button" class="Calibration" id="Pt4"/>
+    <input type="button" class="Calibration" id="Pt5"/>
+    <input type="button" class="Calibration" id="Pt6"/>
+    <input type="button" class="Calibration" id="Pt7"/>
+    <input type="button" class="Calibration" id="Pt8"/>
+    <input type="button" class="Calibration" id="Pt9"/>
+</div>
+
+<div class="pointsDiv" id="myDiv">
+    <input type="button" class="test" id="P1"/>
+<!--    -->
+</div>
+
+<!-- Modal -->
+<div id="helpModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <img src="media/example/calibration.png" width="100%" height="100%" alt="webgazer demo instructions"></img>
+            </div>
+            <div class="modal-footer">
+<!--                <button id="closeBtn" type="button" class="btn btn-default" data-dismiss="modal">Close & load saved model </button>-->
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="Restart()">Calibrate</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="go-top" id="go-top">
+    <a href="#"></a>
+</div>
+
+<!-- Latest compiled JavaScript -->
+<script src="./js/main.js"></script>
+<script src="./js/calibration.js"></script>
+<script src="./js/precision_calculation.js"></script>
+<script src="./js/precision_store_points.js"></script>
+<script src="./js/resize_canvas.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="./js/vue.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.0/axios.min.js"></script>
+<!--<script src="js/httpRequest.js"></script>-->
+
+</body>
+</html>
